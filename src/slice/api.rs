@@ -2254,7 +2254,11 @@ where O: 'a + BitOrder, T: 'a + BitStore {
 	) -> Self::Mut {
 		BitMut {
 			data: *slice.get_unchecked(self),
-			slot: slice.get_unchecked_mut(self ..= self),
+			slot: {
+				let mut bitptr = slice.bitptr();
+				bitptr.set_len(1);
+				bitptr.into_bitslice_mut()
+			},
 		}
 	}
 
