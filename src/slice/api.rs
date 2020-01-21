@@ -2255,7 +2255,7 @@ where O: 'a + BitOrder, T: 'a + BitStore {
 		BitMut {
 			data: *slice.get_unchecked(self),
 			slot: {
-				let mut bitptr = slice.bitptr();
+				let mut bitptr = slice.get_unchecked_mut(self ..).bitptr();
 				bitptr.set_len(1);
 				bitptr.into_bitslice_mut()
 			},
